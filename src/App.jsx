@@ -5,7 +5,7 @@ import { Color } from "three";
 import { FallingModel } from "./components/FallingModel";
 import "./styles.css";
 
-const modelCount = 80;
+const modelCount = 100;
 
 export default function App() {
   const models = Array.from({ length: modelCount }).map(() => {
@@ -25,7 +25,7 @@ export default function App() {
   });
 
   return (
-    <Canvas camera={{ fov: 60, position: [0, 0, 10], near: 1, far: 1000 }}>
+    <Canvas camera={{ fov: 60, position: [0, 0, 10], near: 1, far: 500 }}>
       <color attach="background" args={[new Color("#FFFBE7")]} />
 
       <OrbitControls
@@ -35,7 +35,7 @@ export default function App() {
         maxDistance={10}
         maxPolarAngle={Math.PI / 2}
       />
-      <ambientLight intensity={0.3} />
+      <ambientLight intensity={0.5} />
       <Environment preset="sunset" />
       {models.map((model, i) => (
         <FallingModel

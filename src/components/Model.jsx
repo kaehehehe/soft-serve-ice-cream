@@ -1,14 +1,11 @@
 import { useGLTF } from "@react-three/drei";
-import React, { forwardRef, useEffect, useState } from "react";
+import React, { forwardRef, useEffect } from "react";
 
-const colorPalette = ["white", "red", "black"]; // 색상 팔레트 추가
-
-// 색상 팔레트 추가
+const colorPalette = ["white", "red", "black"];
 
 const Model = forwardRef((props, ref) => {
   const { scene } = useGLTF("soft-serve-ice-cream.glb");
 
-  // 랜덤 색상 인덱스 생성
   const getRandomColorIndex = () =>
     Math.floor(Math.random() * colorPalette.length);
 
@@ -17,8 +14,8 @@ const Model = forwardRef((props, ref) => {
       const mesh = scene.children[2];
 
       const randomColorIndex = getRandomColorIndex();
-      mesh.material.emissive.set(colorPalette[randomColorIndex]); // 빛 컬러 설정
-      mesh.material.emissiveIntensity = 1; // 빛의 강도 설정
+      mesh.material.emissive.set(colorPalette[randomColorIndex]);
+      mesh.material.emissiveIntensity = 1;
     }
   }, [scene]);
 

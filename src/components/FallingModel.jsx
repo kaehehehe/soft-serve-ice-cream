@@ -1,10 +1,13 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
+
+const colorPalette = ["red", "green", "cream"];
 
 export function FallingModel({ initialPosition, speed, delay }) {
   const ref = useRef();
   const { scene } = useGLTF("soft-serve-ice-cream.glb");
+  const model = scene.clone();
 
   useFrame(({ clock }) => {
     const elapsedTime = clock.getElapsedTime() + delay;
@@ -18,11 +21,23 @@ export function FallingModel({ initialPosition, speed, delay }) {
     }
   });
 
+  useEffect(() => {
+    const targetMesh = model.children[2];
+
+    if (targetMesh && targetMesh.isMesh) {
+      const randomColor =
+        colorPalette[Math.floor(Math.random() * colorPalette.length)];
+
+      targetMesh.material = targetMesh.material.clone();
+      targetMesh.material.emissive.set(randomColor);
+    }
+  }, [model]);
+
   return (
     <primitive
       ref={ref}
-      scale={0.8}
-      object={scene.clone()}
+      scale={0.6}
+      object={model}
       position={initialPosition}
     />
   );
