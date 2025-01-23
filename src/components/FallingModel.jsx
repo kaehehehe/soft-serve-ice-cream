@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 
-const colorPalette = ["red", "green"];
+const colorPalette = ["red", "green", "cream"];
 
 export function FallingModel({ initialPosition, speed, delay }) {
   const ref = useRef();
@@ -36,7 +36,7 @@ export function FallingModel({ initialPosition, speed, delay }) {
   return (
     <primitive
       ref={ref}
-      scale={0.8}
+      scale={0.6}
       object={model}
       position={initialPosition}
     />
