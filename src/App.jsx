@@ -26,7 +26,7 @@ export default function App() {
 
   return (
     <Canvas camera={{ fov: 60, position: [0, 0, 10], near: 1, far: 500 }}>
-      <color attach="background" args={[new Color("#FFFBE7")]} />
+      <color attach="background" args={[new Color("#f8f4e6")]} />
 
       <OrbitControls
         enableDamping
