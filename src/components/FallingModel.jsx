@@ -2,22 +2,26 @@ import React, { useEffect, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 
-const colorPalette = ["red", "green", "cream"];
+const colorPalette = ["#713600", "#ffb7b7", "#84b067", "#ffffee"];
 
-export function FallingModel({ initialPosition, speed, delay }) {
+export function FallingModel({ initialPosition }) {
   const ref = useRef();
   const { scene } = useGLTF("soft-serve-ice-cream.glb");
   const model = scene.clone();
 
-  useFrame(({ clock }) => {
-    const elapsedTime = clock.getElapsedTime() + delay;
-    ref.current.rotation.y = elapsedTime;
-    ref.current.position.y -= speed;
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.position.set(
+        initialPosition[0],
+        initialPosition[1],
+        initialPosition[2]
+      );
+    }
+  }, [initialPosition]);
 
-    if (ref.current.position.y < -10) {
-      ref.current.position.y = Math.random() * 10 + 10;
-      ref.current.position.x = (Math.random() - 0.5) * 20;
-      ref.current.position.z = (Math.random() - 0.5) * 20;
+  useFrame(() => {
+    if (ref.current) {
+      ref.current.rotation.y += 0.02;
     }
   });
 
@@ -29,7 +33,7 @@ export function FallingModel({ initialPosition, speed, delay }) {
         colorPalette[Math.floor(Math.random() * colorPalette.length)];
 
       targetMesh.material = targetMesh.material.clone();
-      targetMesh.material.emissive.set(randomColor);
+      targetMesh.material.color.set(randomColor);
     }
   }, [model]);
 
