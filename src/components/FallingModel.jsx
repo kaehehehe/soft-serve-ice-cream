@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 
-const colorPalette = ["red", "green", "cream"];
+const colorPalette = ["#6b3e26", "#ffc5d9", "#c2f2d0", "#fdf5c9"];
 
 export function FallingModel({ initialPosition, speed, delay }) {
   const ref = useRef();
@@ -29,7 +29,7 @@ export function FallingModel({ initialPosition, speed, delay }) {
         colorPalette[Math.floor(Math.random() * colorPalette.length)];
 
       targetMesh.material = targetMesh.material.clone();
-      targetMesh.material.emissive.set(randomColor);
+      targetMesh.material.color.set(randomColor);
     }
   }, [model]);
 
